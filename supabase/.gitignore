@@ -1,0 +1,12 @@
+# Supabase local state
+.branches/
+.temp/
+.supabase/
+
+# Local database files
+*.db
+*.db-shm
+*.db-wal
+
+# Environment variables
+.env

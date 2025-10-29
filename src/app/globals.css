@@ -3,13 +3,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #FFFFFF;
+  --color-secondary: #2663EB;
+  --color-accent: #333333;
+  
+  --font-family-header: 'poppins', sans-serif;
+  --font-family-body: 'kanit', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +22,18 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom utility: apply a ~2/3 width starting at 900px */
+@layer utilities {
+  .w-2\/3-900 {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 900px) {
+    .w-2\/3-900 {
+      width: 66.666667%;
+    }
+  }
 }
+
