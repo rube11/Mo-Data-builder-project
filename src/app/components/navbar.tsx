@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react';
 
 interface NavbarProps {
-  activePage ? : 'home' | 'about' | 'contact';
+  activePage ? : 'home' | 'view' | 'contact';
 }
 
 const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
@@ -33,12 +33,12 @@ const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
               </span>
               <span>Home</span>
             </Link>
-            <a href='#about' className={getLinkClass('about')}>
-              <span className={`mr-2 transition-opacity duration-300 ${activePage === 'about' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+            <Link href='/ViewData' className={getLinkClass('view')}>
+              <span className={`mr-2 transition-opacity duration-300 ${activePage === 'view' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                 →
               </span>
-              <span>About</span>
-            </a>
+              <span>View Data</span>
+            </Link>
             <a href='#contact' className={getLinkClass('contact')}>
               <span className={`mr-2 transition-opacity duration-300 ${activePage === 'contact' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                 →
@@ -77,8 +77,8 @@ const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
                 <span className={`mr-2 ${activePage === 'home' ? 'opacity-100' : ''}`}>→</span>
                 <span>Home</span>
               </a>
-              <a href='#about' className={getLinkClass('about')} onClick={() => setIsOpen(false)}>
-                <span className={`mr-2 ${activePage === 'about' ? 'opacity-100' : ''}`}>→</span>
+              <a href='#view' className={getLinkClass('view')} onClick={() => setIsOpen(false)}>
+                <span className={`mr-2 ${activePage === 'view' ? 'opacity-100' : ''}`}>→</span>
                 <span>About</span>
               </a>
               <a href='#contact' className={getLinkClass('contact')} onClick={() => setIsOpen(false)}>
