@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
+import Footer from '../components/footer';
 import { supabase } from '@/lib/supabase';
 
 interface visualizationProps {
@@ -74,12 +75,12 @@ const ViewDataPage = () => {
   };
 
   return (
-    <div>
+    <div className="font-[family-name:var(--font-family-body)] min-h-screen flex flex-col">
       <Navbar activePage="view" />
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 flex-grow">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Recent Reports</h1>
+          <h1 className="text-4xl font-bold font-[family-name:var(--font-family-header)]">Recent Reports</h1>
 
           {/* View Mode Toggle */}
           <div className="flex gap-2 bg-gray-100 rounded-lg p-1">
@@ -87,7 +88,7 @@ const ViewDataPage = () => {
               onClick={() => setViewMode('grid')}
               className={`px-4 py-2 rounded-md transition-all ${
                 viewMode === 'grid'
-                  ? 'bg-secondary text-white'
+                  ? 'bg-secondary text-primary'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -99,7 +100,7 @@ const ViewDataPage = () => {
               onClick={() => setViewMode('table')}
               className={`px-4 py-2 rounded-md transition-all ${
                 viewMode === 'table'
-                  ? 'bg-secondary text-white'
+                  ? 'bg-secondary text-primary'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -129,48 +130,59 @@ const ViewDataPage = () => {
                 {visualizations.map((viz) => (
                   <div
                     key={viz.id}
-                    className="border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow bg-white"
+                    className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow bg-primary"
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-xl font-semibold text-gray-800">{viz.title}</h3>
-                      <button
-                        onClick={() => handleDelete(viz.id, viz.uploaded_image_url)}
-                        disabled={deleteLoading === viz.id}
-                        className="text-red-500 hover:text-red-700 transition-colors disabled:opacity-50"
-                        title="Delete report"
-                      >
-                        {deleteLoading === viz.id ? (
-                          <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                        ) : (
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        )}
-                      </button>
+                    {/* Chart Preview Image */}
+                    <div className="relative h-48 bg-gray-100">
+                      <img 
+                        src={viz.generated_chart_url} 
+                        alt={`${viz.chart_type} chart for ${viz.title}`}
+                        className="w-full h-full object-contain p-4"
+                      />
+                      <div className="absolute top-2 right-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-600 capitalize">
+                        {viz.chart_type}
+                      </div>
                     </div>
 
-                    <div className="space-y-2 text-sm">
-                      <p>
-                        <span className="font-medium text-gray-600">Chart Type:</span>{' '}
-                        <span className="capitalize">{viz.chart_type}</span>
-                      </p>
-                      {viz.description && (
-                        <p>
-                          <span className="font-medium text-gray-600">Focus:</span>{' '}
-                          <span className="text-gray-700">{viz.description}</span>
-                        </p>
-                      )}
-                      <a
-                        href={viz.uploaded_image_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block mt-3 text-secondary hover:underline"
-                      >
-                        Download Excel File →
-                      </a>
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-xl font-semibold text-gray-800 font-[family-name:var(--font-family-header)]">{viz.title}</h3>
+                        <button
+                          onClick={() => handleDelete(viz.id, viz.uploaded_image_url)}
+                          disabled={deleteLoading === viz.id}
+                          className="text-red-500 hover:text-red-700 transition-colors disabled:opacity-50"
+                          title="Delete report"
+                        >
+                          {deleteLoading === viz.id ? (
+                            <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                          ) : (
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+
+                      <div className="space-y-2 text-sm">
+                        {viz.description && (
+                          <p>
+                            <span className="font-medium text-gray-600">Focus:</span>{' '}
+                            <span className="text-gray-700">{viz.description}</span>
+                          </p>
+                        )}
+                        <a
+                          href="/Generatedreport.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block mt-3 text-secondary hover:underline"
+                        >
+                          Download Generated Report →
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -179,10 +191,13 @@ const ViewDataPage = () => {
 
             {/* Table View */}
             {viewMode === 'table' && (
-              <div className="overflow-x-auto bg-white rounded-lg shadow">
+              <div className="overflow-x-auto bg-primary rounded-lg shadow">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Preview
+                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Title
                       </th>
@@ -200,9 +215,16 @@ const ViewDataPage = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-primary divide-y divide-gray-200">
                     {visualizations.map((viz) => (
                       <tr key={viz.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <img 
+                            src={viz.generated_chart_url} 
+                            alt={`${viz.chart_type} preview`}
+                            className="w-20 h-20 object-contain rounded border border-gray-200"
+                          />
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-gray-900">{viz.title}</div>
                         </td>
@@ -218,12 +240,12 @@ const ViewDataPage = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm">
                           <a
-                            href={viz.uploaded_image_url}
+                            href="/Generatedreport.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-secondary hover:underline"
                           >
-                            Download
+                            Download Report
                           </a>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -244,6 +266,7 @@ const ViewDataPage = () => {
           </>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

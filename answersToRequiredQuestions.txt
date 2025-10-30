@@ -1,0 +1,28 @@
+1. What is the product’s name (your Mo-Something app)?
+- The products name is MoData
+
+2. What is the function + connection?
+-Function: Data Report and Graph Generation
+-Connection: GoogleSheets, Excel (anywhere you can export xlsx)
+
+3. Why did you choose to make the product?
+-Good Data can be the backbone to a company and one of the best ways to take advantage of this is through
+Data Reports and Graphs. 
+-Data Reports and Graphs highlight key trends and patterns that are present in your data
+and these reports can help guide business decisions
+
+4. Why would MoFlo clients (small and medium sized businesses) be interested in and/or
+use this product?
+-Small to medium sized businesses typically dont have the resources to invest in a data analyst team.
+MoData provides an alternative, leveraging AI to highlight key patterns and trends present in data.
+Small and medium sized businesses would also be inclined to use this service because it creates ways for 
+them to potentially increase revenue
+
+5. What would you improve or change about your new product if you had more time or
+could work on it in the future?
+- If I had more time for this product I would connect it to Google OAth, QuickBooks, SalesForce, etc..  so users could upload their 
+files directly from their preferred platform. 
+- I would also want to include a feature where users can upload their data and ask an 
+llm questions about their data and get answers in real time. 
+- Additionally, I would want to optomize all components and only render necessary components on the client
+everything else would be rendered on the server for efficiency

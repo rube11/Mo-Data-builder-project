@@ -3,10 +3,14 @@
 import React, { useState } from 'react';
 import Navbar from '../components/navbar';
 import { supabase } from '@/lib/supabase';
+import { getChartPlaceholder } from '@/lib/placeholders';
+import { useRouter } from 'next/navigation';
+import Footer from '../components/footer';
 
 type ChartType = 'bar' | 'line' | 'pie';
 
 const GenerateDataPage = () => {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [title, setTitle] = useState<string>('');
   const [chartType, setChartType] = useState<ChartType>('bar');
@@ -21,6 +25,7 @@ const GenerateDataPage = () => {
     { number: 3, name: 'Generate' }
   ];
 
+  // function to handle file upload 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
     if (file) {
@@ -36,7 +41,7 @@ const GenerateDataPage = () => {
 
   const handleGenerate = async () => {
     if (!uploadedFile) {
-      setError('Please upload a file before generating');
+      setError('Failed to Upload File');
       return;
     }
 
@@ -78,6 +83,7 @@ const GenerateDataPage = () => {
             title,
             chart_type: chartType,
             uploaded_image_url: fileUrl,
+            generated_chart_url: getChartPlaceholder(chartType),
             description: description || null,
           }
         ])
@@ -98,13 +104,11 @@ const GenerateDataPage = () => {
         console.error('Failed to save JSON file:', saveResult.message);
       }
 
-      // Success! Reset form
+      // reset form after success 
       alert(`Data saved successfully! JSON saved to: ${saveResult.path}`);
-      setCurrentStep(1);
-      setTitle('');
-      setChartType('bar');
-      setUploadedFile(null);
-      setDescription('');
+      
+      // Redirect to view page after saving data
+      router.push('/viewData');
     } catch (err) {
       console.error('Error saving data:', err);
       setError('Failed to save data. Please try again.');
@@ -117,11 +121,10 @@ const GenerateDataPage = () => {
   const canProceedFromStep2 = uploadedFile !== null;
 
   return (
-    <div>
+    <div className="font-[family-name:var(--font-family-body)] md:pb-96">
       <Navbar/>
-
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-center">Generate Data Report</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center font-[family-name:var(--font-family-header)]">Generate Data Report</h1>
 
         {/* Progress Bar */}
         <div className="mb-12">
@@ -164,7 +167,7 @@ const GenerateDataPage = () => {
           {/* Step 1: Report Details */}
           {currentStep === 1 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold mb-6">Report Details</h2>
+              <h2 className="text-2xl font-semibold mb-6 font-[family-name:var(--font-family-header)]">Report Details</h2>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Report Title</label>
@@ -215,7 +218,7 @@ const GenerateDataPage = () => {
           {/* Step 2: Upload Data */}
           {currentStep === 2 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold mb-6">Upload Your Data</h2>
+              <h2 className="text-2xl font-semibold mb-6 font-[family-name:var(--font-family-header)]">Upload Your Data</h2>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Excel File (.xlsx or .xls)</label>
@@ -274,7 +277,7 @@ const GenerateDataPage = () => {
           {/* Step 3: Description & Generate */}
           {currentStep === 3 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold mb-6">Final Details</h2>
+              <h2 className="text-2xl font-semibold mb-6 font-[family-name:var(--font-family-header)]">Final Details</h2>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Report Focus (Optional)</label>
@@ -289,7 +292,7 @@ const GenerateDataPage = () => {
 
               {/* Summary */}
               <div className="bg-gray-50 rounded-lg p-6 space-y-2">
-                <h3 className="font-semibold mb-3">Summary</h3>
+                <h3 className="font-semibold mb-3 font-[family-name:var(--font-family-header)]">Summary</h3>
                 <p><span className="font-medium">Title:</span> {title}</p>
                 <p><span className="font-medium">Chart Type:</span> {chartType}</p>
                 <p><span className="font-medium">File:</span> {uploadedFile?.name}</p>
@@ -319,8 +322,9 @@ const GenerateDataPage = () => {
           )}
         </div>
       </div>
+      <Footer/>
    </div>
   );
 };
 
-export default GenerateDataPage; 
+export default GenerateDataPage;
