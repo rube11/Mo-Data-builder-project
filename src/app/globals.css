@@ -13,6 +13,10 @@
   
   --font-family-header: 'poppins', sans-serif;
   --font-family-body: 'kanit', sans-serif;
+  
+  /* Create utility classes for fonts */
+  --font-header: var(--font-family-header);
+  --font-body: var(--font-family-body);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +37,17 @@
   @media (min-width: 900px) {
     .w-2\/3-900 {
       width: 66.666667%;
+    }
+  }
+
+  /* Custom margin utility for navbar at 900px breakpoint */
+  .m-900 {
+    margin: 1rem; /* 4 = 1rem on smaller screens */
+  }
+
+  @media (min-width: 900px) {
+    .m-900 {
+      margin: 2rem; /* 8 = 2rem at 900px and above */
     }
   }
 }

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react';
 
 interface NavbarProps {
-  activePage ? : 'home' | 'about' | 'contact';
+  activePage ? : 'home' | 'view';
 }
 
 const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
@@ -17,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
   };
 
   return (
-    <nav className='bg-primary shadow-lg rounded-full m-8 w-full lg:w-3/4 w-2/3-900'>
+    <nav className='bg-primary shadow-lg rounded-full m-4 md:m-8 w-full lg:w-3/4 w-2/3-900'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-12'>
           {/* Logo */}
@@ -33,25 +33,19 @@ const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
               </span>
               <span>Home</span>
             </Link>
-            <a href='#about' className={getLinkClass('about')}>
-              <span className={`mr-2 transition-opacity duration-300 ${activePage === 'about' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+            <Link href='/viewData' className={getLinkClass('view')}>
+              <span className={`mr-2 transition-opacity duration-300 ${activePage === 'view' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                 →
               </span>
-              <span>About</span>
-            </a>
-            <a href='#contact' className={getLinkClass('contact')}>
-              <span className={`mr-2 transition-opacity duration-300 ${activePage === 'contact' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                →
-              </span>
-              <span>Contact</span>
-            </a>
+              <span>View Data</span>
+            </Link>
           </div>
 
           {/* Create Button - Desktop */}
           <div className='hidden md:block'>
-            <button className='bg-secondary text-white font-family-body px-4 py-2 rounded-full hover:bg-blue-700 whitespace-nowrap flex-shrink-0 min-w-max'>
+            <Link href = '/generateData' className='bg-secondary text-white font-family-body px-4 py-2 rounded-full hover:bg-blue-700 whitespace-nowrap flex-shrink-0 min-w-max'>
               Create Report {'>'}
-            </button>
+            </Link>
           </div>
 
           {/* Hamburger Menu Button */}
@@ -73,21 +67,17 @@ const Navbar: React.FC<NavbarProps> = ({ activePage}) => {
         <div className='flex justify-center'>
           <div className='md:hidden bg-primary rounded-b-3xl px-4 pb-4'>
             <div className='flex flex-col space-y-4'>
-              <a href='#home' className={getLinkClass('home')} onClick={() => setIsOpen(false)}>
+              <Link href='/' className={getLinkClass('home')} onClick={() => setIsOpen(false)}>
                 <span className={`mr-2 ${activePage === 'home' ? 'opacity-100' : ''}`}>→</span>
                 <span>Home</span>
-              </a>
-              <a href='#about' className={getLinkClass('about')} onClick={() => setIsOpen(false)}>
-                <span className={`mr-2 ${activePage === 'about' ? 'opacity-100' : ''}`}>→</span>
-                <span>About</span>
-              </a>
-              <a href='#contact' className={getLinkClass('contact')} onClick={() => setIsOpen(false)}>
-                <span className={`mr-2 ${activePage === 'contact' ? 'opacity-100' : ''}`}>→</span>
-                <span>Contact</span>
-              </a>
-              <button className='bg-secondary text-white font-family-body px-4 py-2 rounded-full hover:bg-blue-700 w-full'>
+              </Link>
+              <Link href='/viewData' className={getLinkClass('view')} onClick={() => setIsOpen(false)}>
+                <span className={`mr-2 ${activePage === 'view' ? 'opacity-100' : ''}`}>→</span>
+                <span>View Data</span>
+              </Link>
+              <Link href='/generateData' className='bg-secondary text-white font-family-body px-4 py-2 rounded-full hover:bg-blue-700 w-full text-center' onClick={() => setIsOpen(false)}>
                 Create Report {'>'}
-              </button>
+              </Link>
             </div>
           </div>
         </div>
