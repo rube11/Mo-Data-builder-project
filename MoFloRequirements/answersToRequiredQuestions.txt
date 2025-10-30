@@ -6,6 +6,7 @@
 -Connection: GoogleSheets, Excel (anywhere you can export xlsx)
 
 3. Why did you choose to make the product?
+-I made this product to make data analytics more accesible to others
 -Good Data can be the backbone to a company and one of the best ways to take advantage of this is through
 Data Reports and Graphs. 
 -Data Reports and Graphs highlight key trends and patterns that are present in your data
