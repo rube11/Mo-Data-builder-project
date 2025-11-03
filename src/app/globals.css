@@ -3,7 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  
+  --font-family-header: 'poppins', sans-serif;
+  --font-family-body: 'kanit', sans-serif;
 }
 
 @theme inline {
